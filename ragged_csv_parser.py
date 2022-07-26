@@ -45,7 +45,8 @@ INPUT_FILE = None
 while INPUT_FILE == None:
     file_selection_entry = input(f'''{paginator}\n
 - To open a file browser and select a csv you would like to parse, press <ENTER>. 
-- Alternatively, paste the absolute path to whichever csv you would like to use (then press <ENTER>)\n''')
+- Alternatively, paste the absolute path to whichever csv you would like to use (then press <ENTER>)
+''')
 
     if file_selection_entry == '':
         try:
@@ -117,6 +118,7 @@ if dir_selection_entry.lower() == 'cd':
     file_path = filedialog.askdirectory() or file_path
 else:
     file_path = dir_selection_entry or file_path
+
 print(paginator)
 
 if input('Would you like have the current date and time prepended to your filename ([y]/n)? ').lower() in ["y","yes",""]:
@@ -126,20 +128,13 @@ else:
 
     output_file = os.path.join(file_path,output_file)
 
-input(f'''{paginator}\nYour selected filename is: {output_file}
-
-Press enter to open your csv in the default application''')
-
-
-#%%
 table_to_display = sliced_lists[section_labels.index(TABLE_NAME)][1:]
-df = pd.DataFrame(table_to_display)
 
-#%% 
-table_to_display = sliced_lists[section_labels.index(TABLE_NAME)][1:]
-df = pd.DataFrame(table_to_display)
-
-#%%
 df = pd.DataFrame(table_to_display[1:])
+
 df.to_csv(output_file, index=False, header=table_to_display[0])
-open_file(output_file)
+
+if input(f'''{paginator}\nYour selected filename is: {output_file}
+
+Would you like to open your csv in the default application ([y]/n)? ''').lower() in ['y','yes','']:
+    open_file(output_file)
