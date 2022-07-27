@@ -1,6 +1,9 @@
-#%%
-# Filename: code_converter.ipynb
+# 2022.07.26 09:42PM
+
+# Filename: ragged_csv_parser.ipynb
 # Author: Ben Sprague
+
+#%%
 
 import os
 import csv
@@ -92,7 +95,6 @@ for i in range(1, len(separate_at)):
     sliced_lists.append(acs_file[separate_at[i-1]:separate_at[i]])
 
 #%%
-# Check this output for acceptable values for 'TABLE_NAME' variable
 section_labels = []
 for i in range(len(sliced_lists)):
     section_labels += sliced_lists[i][0]
@@ -129,9 +131,7 @@ else:
     output_file = os.path.join(file_path,output_file)
 
 table_to_display = sliced_lists[section_labels.index(TABLE_NAME)][1:]
-
 df = pd.DataFrame(table_to_display[1:])
-
 df.to_csv(output_file, index=False, header=table_to_display[0])
 
 if input(f'''{paginator}\nYour selected filename is: {output_file}
